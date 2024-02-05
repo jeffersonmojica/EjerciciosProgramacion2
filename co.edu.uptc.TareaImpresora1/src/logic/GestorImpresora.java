@@ -149,5 +149,5 @@ public class GestorImpresora {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//VERIFICACION COMMIT
 }
