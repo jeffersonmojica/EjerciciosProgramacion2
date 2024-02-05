@@ -1,3 +1,10 @@
+<<<<<<< HEAD
 /model/
 /logic/
+=======
+/logic/
+/model/
+/module-info.class
+/persistence/
+>>>>>>> 3d40f2ade0a1cb94f2da2184ed69c9d6a4e5a3b9
 /ui/
