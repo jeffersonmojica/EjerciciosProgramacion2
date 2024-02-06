@@ -2,7 +2,6 @@ package model;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
 import ui.InterfazImpresora;
 
 public class Impresora {

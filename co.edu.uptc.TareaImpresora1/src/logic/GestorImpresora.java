@@ -2,13 +2,12 @@ package logic;
 
 import javax.swing.JOptionPane;
 import model.ArchivoImprimir;
-import model.Impresora;
-import ui.InterfazImpresora;
-
 import model.ArchivoTexto;
 import model.ArchivoImagen;
 import model.ArchivoAudio;
 import model.ArchivoVideo;
+import model.Impresora;
+import ui.InterfazImpresora;
 
 public class GestorImpresora {
     private Impresora impresora;
@@ -16,51 +15,38 @@ public class GestorImpresora {
 
     public GestorImpresora() {
         this.impresora = new Impresora(100, 50);
-        this.interfazImpresora = new InterfazImpresora(this);
+        this.interfazImpresora = new InterfazImpresora();
         this.impresora.setInterfazImpresora(interfazImpresora);
     }
 
     public void agregarArchivo() {
-        String[] opciones = {"Sí", "No"};
-        int confirmacion = JOptionPane.showOptionDialog(
+        int confirmacion = JOptionPane.showConfirmDialog(
                 null,
                 "¿Desea agregar un nuevo archivo?",
                 "Agregar Archivo",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opciones,
-                opciones[0]);
+                JOptionPane.YES_NO_OPTION);
 
-        if (confirmacion == 0) {  // Si elige "Sí"
-            String[] opcionesArchivo = {"Texto", "Imagen", "Audio", "Video"};
-            int seleccionTipoArchivo = JOptionPane.showOptionDialog(
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            String tipoArchivo = (String) JOptionPane.showInputDialog(
                     null,
                     "Seleccione el tipo de archivo:",
                     "Tipo de Archivo",
-                    JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,
-                    opcionesArchivo,
-                    opcionesArchivo[0]);
+                    new String[]{"Texto", "Imagen", "Audio", "Video"},
+                    "Texto");
 
-            if (seleccionTipoArchivo >= 0) {
-                String tipoArchivo = opcionesArchivo[seleccionTipoArchivo];
-
-                String[] opcionesTamañoHoja = {"Carta", "Oficio"};
-                int seleccionTamañoHoja = JOptionPane.showOptionDialog(
+            if (tipoArchivo != null) {
+                String tamañoHoja = (String) JOptionPane.showInputDialog(
                         null,
                         "Seleccione el tamaño de hoja:",
                         "Tamaño de Hoja",
-                        JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null,
-                        opcionesTamañoHoja,
-                        opcionesTamañoHoja[0]);
+                        new String[]{"Carta", "Oficio"},
+                        "Carta");
 
-                if (seleccionTamañoHoja >= 0) {
-                    String tamañoHoja = opcionesTamañoHoja[seleccionTamañoHoja];
-
+                if (tamañoHoja != null) {
                     try {
                         int paginas = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de páginas:"));
 
@@ -102,12 +88,7 @@ public class GestorImpresora {
         interfazImpresora.actualizarSalida(estado);
     }
 
-    public static void main(String[] args) {
-        GestorImpresora gestorImpresora = new GestorImpresora();
-        gestorImpresora.iniciarInterfaz();
-    }
-
-    private void iniciarInterfaz() {
+    public void iniciarInterfaz() {
         interfazImpresora.inicializar();
     }
 
@@ -135,19 +116,20 @@ public class GestorImpresora {
         return archivo;
     }
 
-	public String getHojasCarta() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getHojasCarta() {
+        return String.valueOf(impresora.getHojasCarta());
+    }
 
-	public String getHojasOficio() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String getHojasOficio() {
+        return String.valueOf(impresora.getHojasOficio());
+    }
 
-	public String getTamañoColaImpresion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-//VERIFICACION COMMIT
+    public String getTamañoColaImpresion() {
+        return String.valueOf(impresora.getTamañoColaImpresion());
+    }
+
+    public static void main(String[] args) {
+        GestorImpresora gestorImpresora = new GestorImpresora();
+        gestorImpresora.iniciarInterfaz();
+    }
 }
