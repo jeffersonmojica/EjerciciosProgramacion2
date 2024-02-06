@@ -102,12 +102,9 @@ public class GestorImpresora {
         interfazImpresora.actualizarSalida(estado);
     }
 
-    public static void main(String[] args) {
-        GestorImpresora gestorImpresora = new GestorImpresora();
-        gestorImpresora.iniciarInterfaz();
-    }
 
-    private void iniciarInterfaz() {
+
+    public void iniciarInterfaz() {
         interfazImpresora.inicializar();
     }
 

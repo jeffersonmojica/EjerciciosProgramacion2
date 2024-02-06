@@ -20,6 +20,10 @@ public class InterfazImpresora {
         this.gestorImpresora = gestorImpresora;
         inicializar();
     }
+    public static void main(String[] args) {
+        GestorImpresora gestorImpresora = new GestorImpresora();
+        gestorImpresora.iniciarInterfaz();
+    }
 
     public void inicializar() {
         frame = new JFrame("Simulador de Impresora");
@@ -79,6 +83,7 @@ public class InterfazImpresora {
         gestorImpresora.agregarArchivo();
         actualizarEstado();
     }
+    
     public void actualizarSalida(String mensaje) {
         areaTexto.append(mensaje + "\n");
     }
@@ -89,5 +94,8 @@ public class InterfazImpresora {
                 ", Hojas oficio: " + gestorImpresora.getHojasOficio() +
                 ", Archivos en cola: " + gestorImpresora.getTamañoColaImpresion();
         actualizarSalida(estado);
+ 
     }
+    
+
 }
