@@ -1,5 +1,5 @@
 package ui;
-//Capa de Interfaz (interfaz gráfica)
+//actual
 import javax.swing.*;
 
 import logic.ImpresoraService;
