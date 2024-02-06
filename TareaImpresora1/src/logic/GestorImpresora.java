@@ -65,7 +65,7 @@ public class GestorImpresora {
                         int paginas = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de páginas:"));
 
                         if (paginas <= 0) {
-                            JOptionPane.showMessageDialog(null, "Numero de páginas no válido", "Error", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Número de páginas no válido", "Error", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
 
@@ -102,12 +102,9 @@ public class GestorImpresora {
         interfazImpresora.actualizarSalida(estado);
     }
 
-    public static void main(String[] args) {
-        GestorImpresora gestorImpresora = new GestorImpresora();
-        gestorImpresora.iniciarInterfaz();
-    }
 
-    private void iniciarInterfaz() {
+
+    public void iniciarInterfaz() {
         interfazImpresora.inicializar();
     }
 
