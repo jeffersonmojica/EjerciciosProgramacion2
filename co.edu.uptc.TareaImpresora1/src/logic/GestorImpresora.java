@@ -88,9 +88,6 @@ public class GestorImpresora {
         interfazImpresora.actualizarSalida(estado);
     }
 
-<<<<<<< HEAD
-=======
-
 
 >>>>>>> ef2e27b110ca61dcd0fd163e3b2fc4909a56c52f
     public void iniciarInterfaz() {
