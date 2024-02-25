@@ -134,3 +134,5 @@ public class GestorImpresora {
         gestorImpresora.iniciarInterfaz();
     }
 }
+//commit
+
