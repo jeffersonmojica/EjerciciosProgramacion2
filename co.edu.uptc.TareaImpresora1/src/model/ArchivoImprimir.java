@@ -1,39 +1,29 @@
 package model;
 
-public abstract class ArchivoImprimir {
+public class ArchivoImprimir {
     private String nombre;
-    private int paginas;
-    private boolean dobleCara;
-    private boolean color;
     private String tamañoHoja;
+    private int paginas;
 
-    public ArchivoImprimir(String nombre, int paginas, boolean dobleCara, boolean color, String tamañoHoja) {
+    public ArchivoImprimir(String nombre, String tamañoHoja, int paginas) {
         this.nombre = nombre;
-        this.paginas = paginas;
-        this.dobleCara = dobleCara;
-        this.color = color;
         this.tamañoHoja = tamañoHoja;
+        this.paginas = paginas;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public int getPaginas() {
-        return paginas;
-    }
-
-    public boolean isDobleCara() {
-        return dobleCara;
-    }
-
-    public boolean isColor() {
-        return color;
-    }
-
     public String getTamañoHoja() {
         return tamañoHoja;
     }
 
-    public abstract void realizarOperacionEspecifica();
+    public int getPaginas() {
+        return paginas;
+    }
+
+    public void realizarOperacionEspecifica() {
+        // Realizar operación específica del archivo (si es necesario)
+    }
 }

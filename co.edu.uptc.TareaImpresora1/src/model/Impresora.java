@@ -2,13 +2,11 @@ package model;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import ui.InterfazImpresora;
 
 public class Impresora {
     private int hojasCarta;
     private int hojasOficio;
     private Queue<ArchivoImprimir> colaImpresion;
-    private InterfazImpresora interfazImpresora;
 
     public Impresora(int hojasCarta, int hojasOficio) {
         this.hojasCarta = hojasCarta;
@@ -20,52 +18,47 @@ public class Impresora {
         colaImpresion.add(archivoImprimir);
     }
 
-    public void imprimir() {
+    public void imprimir() throws SinHojasException {
         if (!colaImpresion.isEmpty()) {
             ArchivoImprimir archivoImprimir = colaImpresion.poll();
             try {
-                if (archivoImprimir instanceof ArchivoTexto || archivoImprimir instanceof ArchivoImagen) {
-                    actualizarSalida("Imprimiendo: " + archivoImprimir.getNombre());
-                    if (archivoImprimir.isColor()) {
-                        actualizarSalida("Imprimiendo a color");
-                    } else {
-                        actualizarSalida("Imprimiendo en blanco y negro");
-                    }
-                    if (archivoImprimir.isDobleCara()) {
-                        actualizarSalida("Imprimiendo a doble cara");
-                    } else {
-                        actualizarSalida("Imprimiendo a una sola cara");
-                    }
-                    if (archivoImprimir.getTamañoHoja().equals("carta")) {
-                        if (archivoImprimir.getPaginas() <= hojasCarta) {
-                            hojasCarta -= archivoImprimir.getPaginas();
-                        } else {
-                            throw new SinHojasException("Error: No hay suficientes hojas de carta.");
-                        }
-                    } else if (archivoImprimir.getTamañoHoja().equals("oficio")) {
-                        if (archivoImprimir.getPaginas() <= hojasOficio) {
-                            hojasOficio -= archivoImprimir.getPaginas();
-                        } else {
-                            throw new SinHojasException("Error: No hay suficientes hojas de oficio.");
-                        }
-                    }
-                    actualizarSalida("Impresión completada");
-                } else {
-                    throw new SinHojasException("Error: No se puede imprimir archivos de audio o video.");
+                archivoImprimir.realizarOperacionEspecifica();
+
+                if (archivoImprimir.getTamañoHoja().equals("carta")) {
+                    validarHojas(archivoImprimir.getPaginas(), hojasCarta, "hojas de carta");
+                    hojasCarta -= archivoImprimir.getPaginas();
+                } else if (archivoImprimir.getTamañoHoja().equals("oficio")) {
+                    validarHojas(archivoImprimir.getPaginas(), hojasOficio, "hojas de oficio");
+                    hojasOficio -= archivoImprimir.getPaginas();
                 }
+
+                System.out.println("Impresión completada");
+                actualizarEstado();  // Agregamos esto para actualizar el estado después de imprimir
             } catch (SinHojasException e) {
-                actualizarSalida(e.getMessage());
+                System.out.println(e.getMessage());
                 colaImpresion.add(archivoImprimir);
             }
         } else {
-            actualizarSalida("La cola de impresión está vacía.");
+            System.out.println("La cola de impresión está vacía.");
+        }
+    }
+
+    private void validarHojas(int paginas, int hojasDisponibles, String tipoHojas) throws SinHojasException {
+        if (paginas > hojasDisponibles) {
+            throw new SinHojasException("Error: No hay suficientes " + tipoHojas + ".");
         }
     }
 
     public void recargarHojas() {
-        hojasCarta = 100; // Cantidad de hojas carta después de recargar
-        hojasOficio = 50; // Cantidad de hojas oficio después de recargar
-        actualizarSalida("Se recargaron las hojas de la impresora.");
+        // Validamos para evitar que el programa se dañe con una cantidad excesiva de hojas
+        if (hojasCarta + hojasOficio >= 2000) {
+            System.out.println("Error: La cantidad total de hojas no puede ser mayor o igual a 2000.");
+        } else {
+            hojasCarta = 100; // Cantidad de hojas carta después de recargar
+            hojasOficio = 50; // Cantidad de hojas oficio después de recargar
+            System.out.println("Se recargaron las hojas de la impresora.");
+            actualizarEstado();  // Agregamos esto para actualizar el estado después de recargar
+        }
     }
 
     public int getHojasCarta() {
@@ -80,13 +73,10 @@ public class Impresora {
         return colaImpresion.size();
     }
 
-    public void setInterfazImpresora(InterfazImpresora interfazImpresora) {
-        this.interfazImpresora = interfazImpresora;
-    }
-
-    private void actualizarSalida(String mensaje) {
-        if (interfazImpresora != null) {
-            interfazImpresora.actualizarSalida(mensaje);
-        }
+    private void actualizarEstado() {
+        String estado = "Hojas carta: " + hojasCarta +
+                ", Hojas oficio: " + hojasOficio +
+                ", Archivos en cola: " + colaImpresion.size();
+        System.out.println(estado);
     }
 }

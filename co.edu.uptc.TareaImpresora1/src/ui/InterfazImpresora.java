@@ -1,41 +1,21 @@
 package ui;
-import javax.swing.JOptionPane;
 
+import javax.swing.*;
+import java.awt.*;
 import logic.GestorImpresora;
+import model.SinHojasException;
 
 public class InterfazImpresora {
-public static void main(String[] args) {
-	
-}        GestorImpresora gestorImpresora = new GestorImpresora();
-        while (true) {
-            int opcion = Integer.parseInt(JOptionPane.showInputDialog(
-                    "Seleccione una opción:\n" +
-                            "1. Agregar Archivo\n" +
-                            "2. Imprimir\n" +
-                            "3. Recargar Papel\n" +
-                            "4. Salir"));
+    private JFrame frame;
+    private JTextArea areaTexto;
+    private JButton botonAgregar;
+    private JButton botonImprimir;
+    private JButton botonRecargar;
+    private JButton botonSalir;
+    private GestorImpresora gestorImpresora;
 
-            switch (opcion) {
-                case 1:
-                    gestorImpresora.agregarArchivo();
-                    break;
-                case 2:
-                    gestorImpresora.imprimir();
-                    break;
-                case 3:
-                    gestorImpresora.recargarHojas();
-                    break;
-                case 4:
-                    System.exit(0);
-            }
-=======
     public InterfazImpresora(GestorImpresora gestorImpresora) {
         this.gestorImpresora = gestorImpresora;
-        inicializar();
-    }
-    public static void main(String[] args) {
-        GestorImpresora gestorImpresora = new GestorImpresora();
-        gestorImpresora.iniciarInterfaz();
     }
 
     public void inicializar() {
@@ -55,7 +35,11 @@ public static void main(String[] args) {
 
         botonImprimir = crearBoton("Imprimir", 180, 220, 150, 30, new Color(255, 140, 0));
         botonImprimir.addActionListener(e -> {
-            gestorImpresora.imprimir();
+            try {
+                gestorImpresora.imprimir();
+            } catch (SinHojasException sinHojasException) {
+                sinHojasException.printStackTrace();
+            }
             actualizarEstado();
         });
         frame.add(botonImprimir);
@@ -76,8 +60,11 @@ public static void main(String[] args) {
 
         frame.setLayout(null);
         frame.setVisible(true);
+
+        // Actualizamos el estado inicial
+        actualizarEstado();
     }
-    
+
     private void cerrarAplicacion() {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
@@ -85,33 +72,34 @@ public static void main(String[] args) {
         }
     }
 
-	public void actualizarSalida(String estado) {
-		// TODO Auto-generated method stub
-		
-	}
+    private JButton crearBoton(String texto, int x, int y, int ancho, int alto, Color color) {
+        JButton boton = new JButton(texto);
+        boton.setBounds(x, y, ancho, alto);
+        boton.setBackground(color);
+        return boton;
+    }
 
-	public void inicializar() {
-		// TODO Auto-generated method stub
-		
-	}
     private void mostrarDialogoAgregarArchivo() {
         gestorImpresora.agregarArchivo();
         actualizarEstado();
     }
-    
+
     public void actualizarSalida(String mensaje) {
         areaTexto.append(mensaje + "\n");
     }
-
 
     public void actualizarEstado() {
         String estado = "Hojas carta: " + gestorImpresora.getHojasCarta() +
                 ", Hojas oficio: " + gestorImpresora.getHojasOficio() +
                 ", Archivos en cola: " + gestorImpresora.getTamañoColaImpresion();
         actualizarSalida(estado);
- 
     }
-    
 
-}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            GestorImpresora gestorImpresora = new GestorImpresora();
+            InterfazImpresora interfaz = new InterfazImpresora(gestorImpresora);
+            interfaz.inicializar();
+        });
+    }
 }
