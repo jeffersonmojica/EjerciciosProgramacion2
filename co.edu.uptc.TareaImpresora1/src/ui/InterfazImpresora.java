@@ -1,9 +1,11 @@
 package ui;
-
 import javax.swing.*;
-import java.awt.*;
+
 import logic.GestorImpresora;
 import model.SinHojasException;
+
+import java.awt.*;
+import java.io.File;
 
 public class InterfazImpresora {
     private JFrame frame;
@@ -19,21 +21,28 @@ public class InterfazImpresora {
     }
 
     public void inicializar() {
-        frame = new JFrame("Simulador de Impresora");
+        frame = new JFrame("IMPRESORA SIMULADOR");
         frame.setBounds(100, 100, 500, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        //LOGO
+        ImageIcon frameIcon = new ImageIcon(getClass().getResource("/imagenes/ImpresoraLogo.png"));
+        frame.setIconImage(frameIcon.getImage());
+        
         areaTexto = new JTextArea();
         areaTexto.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(areaTexto);
         scrollPane.setBounds(10, 10, 465, 200);
         frame.add(scrollPane);
 
-        botonAgregar = crearBoton("Agregar Archivo", 10, 220, 150, 30, new Color(255, 140, 0));
+        ImageIcon archivoIcon = new ImageIcon(getClass().getResource("/imagenes/Archivo1icon.png"));
+        botonAgregar = crearBoton("Agregar Archivo", 10, 220, 150, 30, new Color(255, 140, 0), archivoIcon);
         botonAgregar.addActionListener(e -> mostrarDialogoAgregarArchivo());
         frame.add(botonAgregar);
 
-        botonImprimir = crearBoton("Imprimir", 180, 220, 150, 30, new Color(255, 140, 0));
+        ImageIcon impresoraIcon = new ImageIcon(getClass().getResource("/imagenes/Impresora.png"));
+        botonImprimir = crearBoton("Imprimir", 180, 220, 150, 30, new Color(255, 140, 0), impresoraIcon);
         botonImprimir.addActionListener(e -> {
             try {
                 gestorImpresora.imprimir();
@@ -44,36 +53,36 @@ public class InterfazImpresora {
         });
         frame.add(botonImprimir);
 
-        botonRecargar = crearBoton("Recargar Papel", 350, 220, 150, 30, new Color(255, 140, 0));
+        ImageIcon papelIcon = new ImageIcon(getClass().getResource("/imagenes/Papel.png"));
+        botonRecargar = crearBoton("Recargar Papel", 350, 220, 150, 30, new Color(255, 140, 0), papelIcon);
         botonRecargar.addActionListener(e -> {
             gestorImpresora.recargarHojas();
             actualizarEstado();
         });
         frame.add(botonRecargar);
 
-        botonSalir = crearBoton("Salir", 175, 300, 150, 30, new Color(178, 34, 34));
+        ImageIcon exitIcon = new ImageIcon(getClass().getResource("/imagenes/Exit.png"));
+        botonSalir = crearBoton("Salir", 175, 300, 150, 30, new Color(178, 34, 34,200), exitIcon);
         botonSalir.addActionListener(e -> cerrarAplicacion());
         frame.add(botonSalir);
 
-        // Cambia el color de fondo a gris oscuro
         frame.getContentPane().setBackground(new Color(169, 169, 169));
 
         frame.setLayout(null);
         frame.setVisible(true);
 
-        // Actualizamos el estado inicial
         actualizarEstado();
     }
 
     private void cerrarAplicacion() {
-        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
+        int confirmacion = JOptionPane.showConfirmDialog(null, "�Est� seguro que desea salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            System.exit(0);  // Cierra la aplicación
+            System.exit(0);
         }
     }
 
-    private JButton crearBoton(String texto, int x, int y, int ancho, int alto, Color color) {
-        JButton boton = new JButton(texto);
+    private JButton crearBoton(String texto, int x, int y, int ancho, int alto, Color color, ImageIcon icono) {
+        JButton boton = new JButton(texto, icono);
         boton.setBounds(x, y, ancho, alto);
         boton.setBackground(color);
         return boton;
@@ -91,7 +100,7 @@ public class InterfazImpresora {
     public void actualizarEstado() {
         String estado = "Hojas carta: " + gestorImpresora.getHojasCarta() +
                 ", Hojas oficio: " + gestorImpresora.getHojasOficio() +
-                ", Archivos en cola: " + gestorImpresora.getTamañoColaImpresion();
+                ", Archivos en cola: " + gestorImpresora.getTamanoColaImpresion();
         actualizarSalida(estado);
     }
 

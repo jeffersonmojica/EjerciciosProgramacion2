@@ -2,12 +2,12 @@ package model;
 
 public class ArchivoImprimir {
     private String nombre;
-    private String tamañoHoja;
+    private String tamanoHoja;
     private int paginas;
 
-    public ArchivoImprimir(String nombre, String tamañoHoja, int paginas) {
+    public ArchivoImprimir(String nombre, String tamanoHoja, int paginas) {
         this.nombre = nombre;
-        this.tamañoHoja = tamañoHoja;
+        this.tamanoHoja = tamanoHoja;
         this.paginas = paginas;
     }
 
@@ -15,8 +15,8 @@ public class ArchivoImprimir {
         return nombre;
     }
 
-    public String getTamañoHoja() {
-        return tamañoHoja;
+    public String gettamanoHoja() {
+        return tamanoHoja;
     }
 
     public int getPaginas() {

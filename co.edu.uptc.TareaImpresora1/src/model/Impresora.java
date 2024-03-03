@@ -24,10 +24,10 @@ public class Impresora {
             try {
                 archivoImprimir.realizarOperacionEspecifica();
 
-                if (archivoImprimir.getTamañoHoja().equals("carta")) {
+                if (archivoImprimir.gettamanoHoja().equals("carta")) {
                     validarHojas(archivoImprimir.getPaginas(), hojasCarta, "hojas de carta");
                     hojasCarta -= archivoImprimir.getPaginas();
-                } else if (archivoImprimir.getTamañoHoja().equals("oficio")) {
+                } else if (archivoImprimir.gettamanoHoja().equals("oficio")) {
                     validarHojas(archivoImprimir.getPaginas(), hojasOficio, "hojas de oficio");
                     hojasOficio -= archivoImprimir.getPaginas();
                 }
@@ -69,7 +69,7 @@ public class Impresora {
         return hojasOficio;
     }
 
-    public int getTamañoColaImpresion() {
+    public int getTamanoColaImpresion() {
         return colaImpresion.size();
     }
 

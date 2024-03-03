@@ -34,8 +34,8 @@ public class GestorImpresora {
         return impresora.getHojasOficio();
     }
 
-    public int getTamañoColaImpresion() {
-        return impresora.getTamañoColaImpresion();
+    public int getTamanoColaImpresion() {
+        return impresora.getTamanoColaImpresion();
     }
 
     public static void main(String[] args) {
