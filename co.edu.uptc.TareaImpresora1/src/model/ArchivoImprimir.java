@@ -24,6 +24,6 @@ public class ArchivoImprimir {
     }
 
     public void realizarOperacionEspecifica() {
-        // Realizar operación específica del archivo (si es necesario)
+        
     }
 }

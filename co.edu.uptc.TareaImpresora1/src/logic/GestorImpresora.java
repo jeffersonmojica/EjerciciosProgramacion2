@@ -1,5 +1,7 @@
 package logic;
 
+import javax.swing.JOptionPane;
+
 import model.ArchivoImprimir;
 import model.Impresora;
 import model.SinHojasException;
@@ -15,7 +17,7 @@ public class GestorImpresora {
     public void agregarArchivo() {
         ArchivoImprimir archivoImprimir = new ArchivoImprimir("Documento", "carta", 10);
         impresora.agregarColaImpresion(archivoImprimir);
-        System.out.println("Se agregó un archivo a la cola de impresión.");
+        JOptionPane.showMessageDialog(null, "se agrego un archivo a la cola de impresion.");
     }
 
     public void imprimir() throws SinHojasException {
@@ -48,3 +50,4 @@ public class GestorImpresora {
         interfazImpresora.inicializar();
     }
 }
+//commit

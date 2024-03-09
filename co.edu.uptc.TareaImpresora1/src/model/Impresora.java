@@ -3,6 +3,8 @@ package model;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.JOptionPane;
+
 public class Impresora {
     private int hojasCarta;
     private int hojasOficio;
@@ -32,14 +34,14 @@ public class Impresora {
                     hojasOficio -= archivoImprimir.getPaginas();
                 }
 
-                System.out.println("Impresión completada");
+                JOptionPane.showMessageDialog(null, "Impresion completada");
                 actualizarEstado();  // Agregamos esto para actualizar el estado después de imprimir
             } catch (SinHojasException e) {
                 System.out.println(e.getMessage());
                 colaImpresion.add(archivoImprimir);
             }
         } else {
-            System.out.println("La cola de impresión está vacía.");
+            JOptionPane.showMessageDialog(null, "La cola de impresion esta vacia.");
         }
     }
 
@@ -52,11 +54,11 @@ public class Impresora {
     public void recargarHojas() {
         // Validamos para evitar que el programa se dañe con una cantidad excesiva de hojas
         if (hojasCarta + hojasOficio >= 2000) {
-            System.out.println("Error: La cantidad total de hojas no puede ser mayor o igual a 2000.");
+            JOptionPane.showMessageDialog(null,"Error: La cantidad total de hojas no puede ser mayor o igual a 2000.");
         } else {
             hojasCarta = 100; // Cantidad de hojas carta después de recargar
             hojasOficio = 50; // Cantidad de hojas oficio después de recargar
-            System.out.println("Se recargaron las hojas de la impresora.");
+            JOptionPane.showMessageDialog(null, "Se recargaron las hojas de la impresora.");
             actualizarEstado();  // Agregamos esto para actualizar el estado después de recargar
         }
     }
@@ -77,6 +79,6 @@ public class Impresora {
         String estado = "Hojas carta: " + hojasCarta +
                 ", Hojas oficio: " + hojasOficio +
                 ", Archivos en cola: " + colaImpresion.size();
-        System.out.println(estado);
+        JOptionPane.showMessageDialog(null, estado);
     }
 }
