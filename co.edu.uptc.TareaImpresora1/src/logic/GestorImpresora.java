@@ -50,6 +50,3 @@ public class GestorImpresora {
         interfazImpresora.inicializar();
     }
 }
-//commit
-//committttt
-
