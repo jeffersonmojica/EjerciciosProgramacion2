@@ -6,7 +6,7 @@ import model.SinHojasException;
 
 import java.awt.*;
 import java.io.File;
-
+//aaa
 public class InterfazImpresora {
     private JFrame frame;
     private JTextArea areaTexto;
