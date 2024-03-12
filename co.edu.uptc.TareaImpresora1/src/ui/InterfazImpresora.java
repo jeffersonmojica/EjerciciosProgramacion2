@@ -1,11 +1,12 @@
 package ui;
 import javax.swing.*;
 
+
+
 import logic.GestorImpresora;
 import model.SinHojasException;
 
 import java.awt.*;
-import java.io.File;
 //aaa
 public class InterfazImpresora {
     private JFrame frame;
@@ -112,3 +113,5 @@ public class InterfazImpresora {
         });
     }
 }
+//commi
+
